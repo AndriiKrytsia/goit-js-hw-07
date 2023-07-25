@@ -34,7 +34,7 @@ function onEscClose(event) {
 const modalImage = basicLightbox.create(`
 <img class="gallery__image"
       src=""
-      alt = "!!!!"/>
+      alt = "alt"/>
 `,{
 onShow: () => {
     document.addEventListener('keydown', onEscClose),
@@ -50,9 +50,15 @@ onShow: () => {
 function onOpenImages(e) {
   e.preventDefault()
   
+  if (e.target.nodeName !== "IMG") {
+    return;
+  }
+
   const imageUrl = e.target.dataset.source;
+  const imageAlt = e.target.alt;
   const imageComplete = modalImage.element().querySelector('img');
   imageComplete.src = imageUrl;
+  imageComplete.alt = imageAlt;
   modalImage.show()
 }
 
